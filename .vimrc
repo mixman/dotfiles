@@ -123,8 +123,9 @@ else
 endif
 set listchars=tab:»·,trail:⋅,nbsp:⋅
 
-" my settings
-map <C-Tab> :NERDTreeToggle<CR>
+" Directory Exploration 
+"map <C-Tab> :NERDTreeToggle<CR>
+let g:netrw_list_hide = '.pyc,.svn,.egg-info'
 " no dollar sign at end of line
 set nolist
 let mapleader = ","
@@ -141,12 +142,14 @@ set statusline=%F%m%r%h%w\ [%{&ff}]\ %y\ [%l/%L--%c]\ [%p%%]
 set laststatus=2 
 set relativenumber
 "set lines=999 " start fullscreen
+nnoremap <C-space> /
 
 " fugitive
 " remove old fugitive buffers
 autocmd BufReadPost fugitive://* set bufhidden=delete
 let g:Gitv_CommitStep = 100
 let g:Gitv_OpenHorizontal = 0
+map <leader>a :only<cr>:Gedit<cr>
 " gitv
 nmap <leader>g :Gitv --all<cr>
 nmap <leader>h :Gitv! --all<cr>
@@ -168,6 +171,15 @@ map <leader>u :LustyFilesystemExplorerFromHere<CR>
 
 " tagbar
 nnoremap <silent> <F4> :TagbarToggle<CR>
+
+" easygrep
+let g:EasyGrepMode=2
+
+" typing too fast; commands in CAPS work also
+command W w
+" faster / on finnish keyboard
+nmap <space> /
+
 
 " Y yanks to the end of the line
 nmap Y y$
@@ -191,6 +203,11 @@ if &diff
 	nmap <C-l> <C-W>l
 	nmap <C-h> <C-W>h
 endif
+
+" vim flicker; C-b+C-f keeps cursor in middle, C-d/C-u doesn't. zz doesn't help
+"map <C-d> <C-f>
+"map <C-u> <C-b>
+
 
 "noremap <F2> :Mru<CR>
 
