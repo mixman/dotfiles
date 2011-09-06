@@ -1,0 +1,13 @@
+[user]
+    name = Jussi Vaihia
+	email = jussiava@gmail.com
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+[core]
+    #excludesfile = ~/dotfiles/gitignore
+	editor = nano
+[alias]
+	hist = log -35 --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+
