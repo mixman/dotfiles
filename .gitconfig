@@ -6,7 +6,8 @@
 	status = auto
 	branch = auto
 [core]
-    #excludesfile = ~/dotfiles/gitignore
+    # place into project root for relative paths to work
+    excludesfile = /opt/gitignore
 	editor = nano
 [alias]
 	hist = log -35 --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short

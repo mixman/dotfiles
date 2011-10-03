@@ -1,4 +1,4 @@
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/Cellar/postgresql/9.0.4/bin/:$PATH"
 
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
 export WORKON_HOME=~/.virtualenv
