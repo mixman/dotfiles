@@ -1,7 +1,7 @@
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/Cellar/postgresql/9.0.4/bin/:$PATH"
 
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
-export WORKON_HOME=~/.virtualenv
+export WORKON_HOME=/opt/virtualenv
 source /usr/local/bin/virtualenvwrapper.sh
 
 # git branch on bash shell

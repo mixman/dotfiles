@@ -11,4 +11,9 @@
 	editor = nano
 [alias]
 	hist = log -35 --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+	st = status
+	co = checkout
+	ci = commit
+	br = branch
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 

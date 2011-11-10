@@ -169,6 +169,8 @@ map <leader>b :LustyBufferExplorer<cr>
 map <leader>y :LustyFilesystemExplorer<CR>
 map <leader>u :LustyFilesystemExplorerFromHere<CR>
 
+map <leader>z :CommandTFlush<CR>
+
 " tagbar
 nnoremap <silent> <F4> :TagbarToggle<CR>
 
@@ -189,6 +191,7 @@ nmap <leader>Y "+yy
 nmap <leader>p "+p
 
 
+command! -nargs=0 Gaa execute 'silent !ctags -R --languages=python --python-kinds=-i .'
 nmap <C-V> "+gP
 imap <C-V> <ESC><C-V>i
 vmap <C-C> "+y
