@@ -1,4 +1,4 @@
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/Cellar/postgresql/9.0.4/bin/:$PATH"
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
 export WORKON_HOME=/opt/virtualenv
@@ -39,4 +39,9 @@ echo -ne $color
 }
 
 PS1='[\[$(branch_color)\]$(parse_git_branch)\[${c_sgr0}\]] \u@\[${c_black}\]\w\[${c_sgr0}\]: '
+
+function title() {
+    # set terminal tab title to $1
+    export PROMPT_COMMAND="echo -ne '\033]0;$1\007'"
+}
 
