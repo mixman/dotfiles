@@ -10,7 +10,6 @@
     excludesfile = /opt/gitignore
 	editor = nano
 [alias]
-	hist = log -35 --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 	st = status
 	co = checkout
 	ci = commit

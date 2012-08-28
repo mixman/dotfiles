@@ -44,15 +44,17 @@ set smartcase
 set hlsearch
 set gdefault   " assume the /g flag on :s substitutions to replace all matches in a line:
 " highlighting is slow in vim; disable after col=X (helps with eg. xml)
-set synmaxcol=120
+" problematic: rest of file will look commented out...
+" set synmaxcol=120
 
 " autocomplete when opening files. behaves somewhat similarly to bash.
+" - AddWildIgnore ran at end of .vimrc
 set wildignore=tags,*.bak,*.swp,*.pyc,*.o,*.obj,*.dll,*.exe,*.gif,*.png,*.jpg,*.jpeg
+set wildignore+=*.o,*.obj,*.pyc,*.DS_STORE,*.db,*.swc
 set wildmenu
 set wildmode=list:longest,full
 set infercase
 set completeopt=longest,menu,menuone
-set wildignore+=*.o,*.obj,*.pyc,*.DS_STORE,*.db,*.swc
 " omnicomplete on ctrl-l
 inoremap <C-l> <C-x><C-o>
 set complete+=.
@@ -401,6 +403,29 @@ function! OnCompleteLoadErrorFile(temp_file_name)
     call JumpNoNo()
 endfunction
 
+" Add wildignores from specified files
+" gitignore -- do not want in repo
+" vimignore -- do not want in vim
+" TODO: should be called once on initial :cd to project
+function! AddWildIgnore(filename)
+    if filereadable(a:filename)
+        let igstring = ''
+        for oline in readfile(a:filename)
+            let line = substitute(oline, 's|n|r', '', "g")
+            if line =~ '^#' | con | endif
+            if line == '' | con  | endif
+            if line =~ '^!' | con  | endif
+            if line =~ '/$' | let igstring .= "," . line . "*" | con | endif
+            let igstring .= "," . line
+        endfor
+        let execstring = "set wildignore+=".substitute(igstring,'^,','',"g")
+        execute execstring
+    endif
+endfunction
+let ignorefiles = ['.gitignore','~/.gitignore','/opt/gitignore','/opt/vimignore']
+for ig in ignorefiles
+    call AddWildIgnore(ig)
+endfor
 
 """"""""""""""""""""""""""""""
 " => JavaScript section
