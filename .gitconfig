@@ -6,7 +6,7 @@
 	status = auto
 	branch = auto
 [core]
-    # place into project root for relative paths to work
+    # place gitignores into project root for relative paths from gitignore to work
     excludesfile = /opt/gitignore
 	editor = nano
 [alias]

@@ -1,0 +1,26 @@
+# generic
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+# django
+_generated_media*
+local_settings.py
+# vim
+PYSMELLTAGS
+tags
+# python
+*.pyc
+# java
+nbproject/private/
+# projects
+s0/BUILD/*
+s0/SOURCE/*
+s0/bin/nginx
+s0/bin/redis-cli
+s0/bin/redis-server
+s0/bin/uwsgi
+s0/conf/nginx-localhost:18021.conf
+s0/logs/*
+s0/tmp/*
