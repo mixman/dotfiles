@@ -7,10 +7,12 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-markdown'
+Bundle 'kchmck/vim-coffee-script'
 " vim-scripts
 Bundle 'LustyExplorer'
 Bundle 'LustyJuggler'
 Bundle 'gitv'
+Bundle 'Tagbar'
 " elsewhere
 Bundle 'git://git.wincent.com/command-t.git'
 " command-t requires: cd ~/.vim/bundle/command-t/ruby/command-t & ruby extconf.rb & make
