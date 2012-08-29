@@ -13,11 +13,15 @@ Bundle 'LustyExplorer'
 Bundle 'LustyJuggler'
 Bundle 'gitv'
 Bundle 'Tagbar'
+Bundle 'AsyncCommand'
 " elsewhere
 Bundle 'git://git.wincent.com/command-t.git'
 " command-t requires: cd ~/.vim/bundle/command-t/ruby/command-t & ruby extconf.rb & make
 filetype plugin indent on
 " vim +BundleInstall +qall
+
+" yank to * register
+set clipboard=unnamed
 
 " source .bashrc
 " mvim . doesn't work anymore after this when called from within a virtualenv
