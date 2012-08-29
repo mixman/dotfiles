@@ -1,5 +1,21 @@
-filetype on
+set nocompatible               " be iMproved
+filetype off                   " required!
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+" My Bundles
+" GitHub
+Bundle 'gmarik/vundle'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-markdown'
+" vim-scripts
+Bundle 'LustyExplorer'
+Bundle 'LustyJuggler'
+Bundle 'gitv'
+" elsewhere
+Bundle 'git://git.wincent.com/command-t.git'
+" command-t requires: cd ~/.vim/bundle/command-t/ruby/command-t & ruby extconf.rb & make
 filetype plugin indent on
+" vim +BundleInstall +qall
 
 " source .bashrc
 " mvim . doesn't work anymore after this when called from within a virtualenv
@@ -63,6 +79,11 @@ set complete+=b
 set complete+=t
 set completeopt+=menuone,longest
 set ofu=syntaxcomplete#Complete
+" move by rows, not lines
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
 
 " by default, use tabs, display tabstabs are four spaces, and we use tabs
 set tabstop=4
@@ -426,6 +447,24 @@ let ignorefiles = ['.gitignore','~/.gitignore','/opt/gitignore','/opt/vimignore'
 for ig in ignorefiles
     call AddWildIgnore(ig)
 endfor
+
+" virtualenv
+let g:pythonworkon = "System"
+function! SetVenv(name)
+py << EOF
+import sys, os.path
+import vim
+name = vim.eval("a:name")
+project_base_dir = '/opt/virtualenv/'+name
+sys.path.insert(0, project_base_dir)
+activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+execfile(activate_this, dict(__file__=activate_this))
+# Save virtual environment name to VIM variable
+vim.command("let g:pythonworkon = '%s'" % os.path.basename(project_base_dir))
+# ref.vim
+vim.command("if !exists('g:ref_pydoc_cmd') | let g:ref_pydoc_cmd = 'python -m pydoc' | endif")
+EOF
+endfunction
 
 """"""""""""""""""""""""""""""
 " => JavaScript section
