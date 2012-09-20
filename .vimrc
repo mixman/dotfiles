@@ -14,6 +14,7 @@ Bundle 'LustyJuggler'
 Bundle 'gitv'
 Bundle 'Tagbar'
 Bundle 'AsyncCommand'
+Bundle 'EasyGrep'
 " elsewhere
 Bundle 'git://git.wincent.com/command-t.git'
 " command-t requires: cd ~/.vim/bundle/command-t/ruby/command-t & ruby extconf.rb & make
@@ -92,21 +93,16 @@ nnoremap gj j
 nnoremap gk k
 
 " by default, use tabs, display tabstabs are four spaces, and we use tabs
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=4 " alias ts
+set shiftwidth=4 " alias sw
+set softtabstop=4 " alias sts
 set autoindent
-set expandtab
+set expandtab " alias: et
 
 " in Ruby and Scala, we use spaces (two) instead of tabs
-au BufRead,BufNewFile *.rb,*.scala set et sw=2 sts=2 ts=8
-" in Python, we use spaces (four) instead of tabs
-au BufRead,BufNewFile *.py set et
-" these are re-specified to avoid issues with having files of different types
-" open. there is probably a better way to do this. which is good, because this
-" list of filetypes isn't anywhere near exhaustive.
-au BufRead,BufNewFile *.css,*.c,*.java,*.html*,*.js set noet sw=4 sts=4 ts=4
-
+au BufRead,BufNewFile *.rb,*.scala setlocal sw=2 sts=2 ts=8
+" Is this needed? They're defaults.
+au BufRead,BufNewFile *.css,*.c,*.java,*.html*,*.js setlocal sw=4 sts=4 ts=4
 " new HTML files get automatic boilerplate
 au BufNewFile *.html 0r ~/.vim/templates/template.html
 
