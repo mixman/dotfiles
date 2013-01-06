@@ -8,6 +8,7 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-markdown'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'jnwhiteh/vim-golang'
 " vim-scripts
 Bundle 'LustyExplorer'
 Bundle 'LustyJuggler'
@@ -429,7 +430,7 @@ endfunction
 " Add wildignores from specified files
 " gitignore -- do not want in repo
 " vimignore -- do not want in vim
-" TODO: should be called once on initial :cd to project
+" NOTE: Run :Proj NAME to have project-specific .vimignores in effect
 function! AddWildIgnore(filename)
     if filereadable(a:filename)
         let igstring = ''
@@ -445,10 +446,26 @@ function! AddWildIgnore(filename)
         execute execstring
     endif
 endfunction
-let ignorefiles = ['.gitignore','~/.gitignore','/opt/gitignore','/opt/vimignore']
-for ig in ignorefiles
-    call AddWildIgnore(ig)
-endfor
+
+function! SetupVimIgnore()
+    for ig in g:ignorefiles
+        call AddWildIgnore(ig)
+    endfor
+endfunction
+
+let g:ignorefiles = ['.gitignore','~/.gitignore','/opt/gitignore','/opt/vimignore','.vimignore']
+call SetupVimIgnore()
+
+command -nargs=1 Proj call GoProj(<q-args>)
+function! GoProj(name)
+py << EOF
+import vim
+name = vim.eval("a:name")
+vim.command(":cd /opt/%s" % name)
+vim.command(":call SetupVimIgnore()")
+EOF
+endfunction
+
 
 " virtualenv
 let g:pythonworkon = "System"
