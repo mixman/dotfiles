@@ -9,6 +9,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-markdown'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'jnwhiteh/vim-golang'
+Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 " vim-scripts
 Bundle 'LustyExplorer'
 Bundle 'LustyJuggler'
@@ -20,7 +21,7 @@ Bundle 'EasyGrep'
 Bundle 'git://git.wincent.com/command-t.git'
 " command-t requires: cd ~/.vim/bundle/command-t/ruby/command-t & ruby extconf.rb & make
 filetype plugin indent on
-" vim +BundleInstall +qall
+" :BundleInstall OR vim +BundleInstall +qall
 
 " yank to * register
 set clipboard=unnamed

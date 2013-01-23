@@ -4,6 +4,11 @@ export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
 export WORKON_HOME=/opt/virtualenv
 source /usr/local/bin/virtualenvwrapper.sh
 
+# android (phonegap)
+export PATH=$PATH:$HOME/Documents/mobile/adt-bundle-mac/sdk/tools:$HOME/Documents/mobile/adt-bundle-mac/sdk/platform-tools
+# appcelerator
+export PATH+=$PATH:/usr/local/share/npm/bin
+
 # git branch on bash shell
 c_cyan=`tput setaf 6`
 c_red=`tput setaf 1`
