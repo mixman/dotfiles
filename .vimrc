@@ -104,7 +104,9 @@ set expandtab " alias: et
 " in Ruby and Scala, we use spaces (two) instead of tabs
 au BufRead,BufNewFile *.rb,*.scala setlocal sw=2 sts=2 ts=8
 " Is this needed? They're defaults.
-au BufRead,BufNewFile *.css,*.c,*.java,*.html*,*.js setlocal sw=4 sts=4 ts=4
+au BufRead,BufNewFile *.css,*.c,*.java,*.html* setlocal sw=4 sts=4 ts=4
+" temporary for project
+au BufRead,BufNewFile *.js setlocal sw=2 sts=2 ts=2
 " new HTML files get automatic boilerplate
 au BufNewFile *.html 0r ~/.vim/templates/template.html
 
@@ -204,7 +206,8 @@ map <leader>z :CommandTFlush<CR>
 nnoremap <silent> <F4> :TagbarToggle<CR>
 
 " easygrep
-let g:EasyGrepMode=2
+" https://github.com/vim-scripts/EasyGrep/blob/master/doc/EasyGrep.txt
+let g:EasyGrepMode=1
 
 " typing too fast; commands in CAPS work also
 command W w
