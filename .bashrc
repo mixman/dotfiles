@@ -1,4 +1,5 @@
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+export PYTHONPATH="/Users/jvai:$PYTHONPATH"
 
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
 export WORKON_HOME=/opt/virtualenv
