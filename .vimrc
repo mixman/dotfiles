@@ -10,6 +10,9 @@ Bundle 'tpope/vim-markdown'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'jnwhiteh/vim-golang'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+Bundle 'fs111/pydoc.vim'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'groenewege/vim-less'
 " vim-scripts
 Bundle 'LustyExplorer'
 Bundle 'LustyJuggler'
@@ -388,7 +391,8 @@ endfunction
 "nnoremap <leader>y :call RunAllTests('')<cr>:redraw<cr>:call JumpNoNo()<cr>
 nnoremap <leader>y :AsyncMake %:h<cr>
 
-set makeprg=unit2\ discover
+"set makeprg=unit2\ discover
+set makeprg=python\ -m\ unittest
 
 
 " settings for writing (hjkl works for navigating big block of text)
