@@ -12,7 +12,10 @@ Bundle 'jnwhiteh/vim-golang'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'fs111/pydoc.vim'
 Bundle 'Valloric/YouCompleteMe'
+"Bundle 'pangloss/vim-javascript'
+" INSTALL: https://github.com/Valloric/YouCompleteMe
 Bundle 'groenewege/vim-less'
+Bundle 'derekwyatt/vim-scala'
 " vim-scripts
 Bundle 'LustyExplorer'
 Bundle 'LustyJuggler'
@@ -210,7 +213,8 @@ nnoremap <silent> <F4> :TagbarToggle<CR>
 
 " easygrep
 " https://github.com/vim-scripts/EasyGrep/blob/master/doc/EasyGrep.txt
-let g:EasyGrepMode=1
+" 2 = all files, 1 = buffers
+let g:EasyGrepMode=2
 
 " typing too fast; commands in CAPS work also
 command W w

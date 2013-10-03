@@ -5,6 +5,15 @@ export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
 export WORKON_HOME=/opt/virtualenv
 source /usr/local/bin/virtualenvwrapper.sh
 
+#export LANG="en_en.UTF-8"
+#export LC_COLLATE="en_en.UTF-8"
+#export LC_CTYPE="en_en.UTF-8"
+#export LC_MESSAGES="en_en.UTF-8"
+#export LC_MONETARY="en_en.UTF-8"
+#export LC_NUMERIC="en_en.UTF-8"
+#export LC_TIME="en_en.UTF-8"
+#export LC_ALL=
+
 # android (phonegap)
 export PATH=$PATH:$HOME/Documents/mobile/adt-bundle-mac/sdk/tools:$HOME/Documents/mobile/adt-bundle-mac/sdk/platform-tools
 # appcelerator
