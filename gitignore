@@ -4,9 +4,6 @@
 *.DS_Store
 *.swp
 *.out
-# django
-_generated_media*
-local_settings.py
 # vim
 PYSMELLTAGS
 tags
@@ -14,3 +11,4 @@ tags
 *.pyc
 # java
 nbproject/private/
+tags

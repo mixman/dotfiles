@@ -1,47 +1,53 @@
+" Vim configuration for Vim, MacVim and NeoVim
 set nocompatible               " be iMproved
 filetype off                   " required
 
 let $FZF_DEFAULT_COMMAND='ag -g ""'
-" brew install fzf
-call plug#begin('~/.vim/plugged')
+let $FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+" neovim.txt
+call plug#begin('~/.config/nvim/plugged')
 Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv', {'on': ['Gitv']}
 Plug 'dyng/ctrlsf.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'}
-call plug#end()
-" :PlugInstall
-
-"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-"Plugin 'Raimondi/delimitMate'
-"Plugin 'tpope/vim-surround'
-
-" TODO: fork Align and remove keymaps
-" Plugin 'Align'
-" Plugin 'luochen1990/rainbow'
+Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
+Plug 'skywind3000/asyncrun.vim'
+if has('nvim')
+    " pip3 install neovim
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+    Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'}
+endif
+call plug#end() " :PlugInstall
 
 filetype plugin indent on
 
-" yank to * register
-set clipboard=unnamed
+" mapleader modification required before further <leader> definitions
+let mapleader=","
 
-set ttyfast
+if has('nvim')
+    let g:vim_conf="~/.config/nvim/vim.init"
+else
+    let g:vim_conf="~/.vimrc"
+endif
 
-let g:quickrun_no_default_key_mappings = 1
-"let g:tlist_javascript_settings = 'javascript;o:object;f:function'
-let g:tlist_javascript_settings = 'js;o:object;f:function'
-" Default file encoding for new files
-setglobal fenc=utf-8
-set encoding=utf-8
+set clipboard=unnamed " yank to * register
+
+let g:quickrun_no_default_key_mappings=1
+let g:tlist_javascript_settings='js;o:object;f:function'
 
 " general things
+set ttyfast
+setglobal fenc=utf-8
+set encoding=utf-8
 set nocompatible
 set backspace=indent,eol,start
 syntax on
 
-" make Python syntax highlighting highlight more things
+" Python syntax highlighting
 let python_highlight_numbers = 1
 let python_highlight_builtins = 1
 let python_highlight_exceptions = 1
@@ -56,8 +62,7 @@ set t_vb=
 set history=100
 set ruler
 set showmatch
-"runtime macros/matchit.vim " matches if/elseif/else as well as brackets
-set lbr " wraps at words instead of at characters
+set lbr      " wraps at words instead of at characters
 set autoread " refresh changed files automatically
 
 " stuff for searching
@@ -66,26 +71,16 @@ set smartcase
 set hlsearch
 set gdefault   " assume the /g flag on :s substitutions to replace all matches in a line:
 
-" autocomplete when opening files. behaves somewhat similarly to bash.
-" - AddWildIgnore ran at end of .vimrc
+" autocompletion using omnicomplete <C-p>
 set wildignore=tags,*.bak,*.swp,*.pyc,*.o,*.obj,*.dll,*.exe,*.gif,*.png,*.jpg,*.jpeg
 set wildignore+=*.o,*.obj,*.pyc,*.DS_STORE,*.db,*.swc
 set wildmenu
 set wildmode=list:longest,full
 set infercase
 set completeopt=longest,menu,menuone
+"inoremap <C-l> <C-x><C-o>
 
-" omnicomplete on ctrl-l
-inoremap <C-l> <C-x><C-o>
-set complete+=.
-set complete+=k
-set complete+=b
-set complete+=t
-set completeopt+=menuone,longest
-set ofu=syntaxcomplete#Complete
-
-" write code like a boss without parens getting in the way
-"inoremap <S-Tab> <esc>la
+" move rightwards in insert mode, eg. foo_() => foo()_
 inoremap <C-e> <C-o>a
 
 " by default, use tabs, display tabstabs are four spaces, and we use tabs
@@ -116,49 +111,20 @@ set nobackup
 set nowb
 set noswapfile
 
-" must be specified before mapping <leader>
-let mapleader = ","
-
-if has('gui_running')
-    set scrolloff=999 " scroll keeping cursor in middle of page
-    set noantialias
-    set background=dark
-    colorscheme solarized
-    set columns=150
-    set guioptions-=m  " hide the menu bar
-    set guioptions-=T  " hide the toolbar
-    set guioptions-=r  " hide the right-hand scroll bar
-    set guioptions-=l  " hide the left-hand scroll bar
-    set guioptions-=L  " hide the left-hand scrollbar for splits/new windows
-    set guioptions-=R  " hide the right-hand scrollbar for splits/new windows
-    " shows/hides menu bar on Ctrl-F1
-    nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
-    if has('gui_macvim')
-        set guifont=Andale\ Mono:h14
-        set cmdheight=3 " (sub-optimal) removes many press ENTER to continue prompts
-    end
-    " search files (works in MacVim)
-    map <leader>t :CtrlP<CR>
-else
-    " vim in terminal
-    set scrolloff=999 " scroll keeping cursor in middle of page
-    set noantialias
-    set cmdheight=2
-    " termguicolors works for iterm2, but not macos-terminal
-    " set termguicolors
-    set t_Co=256
-    set background=dark
-    let g:impact_transbg=1
-    let g:solarized_termcolors=256
-    colorscheme solarized
-    " search files (does not work in MacVim)
-    map <leader>t :FZF<CR>
-end
+set scrolloff=999
+set cmdheight=1
+set termguicolors
+set background=dark
+let g:impact_transbg=1
+let g:solarized_termcolors=256
+colorscheme solarized
 
 set listchars=nbsp:¬,eol:¶,tab:>-,extends:»,precedes:«,trail:•
 
 " GREP
-let g:ackprg = 'ag --vimgrep'
+let g:ackprg='ag --vimgrep'
+set grepprg=ack\ --nongroup\ --column\ $*
+set grepformat=%f:%l:%c:%m
 
 " Directory Exploration 
 "map <C-Tab> :NERDTreeToggle<CR>
@@ -184,8 +150,14 @@ nnoremap <C-space> /
 
 " search for word under cursor
 map <leader>vv :Ack! <C-R><C-W><CR>
+" search files
+map <leader>t :FZF<CR>
 " search buffers
 map <leader>b :CtrlPBuffer<CR>
+" search files for word under cursor
+map <leader>f :CtrlSF <C-R><C-W><CR>
+" search for word, populates quickfix
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 " fugitive
 " remove old fugitive buffers
@@ -201,19 +173,11 @@ highlight diffRemoved guifg=#bf0000
 
 " ,v brings up .vimrc
 " ,V reloads it -- making all changes active (have to save first)
-map <leader>v :sp ~/.vimrc<CR><C-W>_
-map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'init.vim reloaded'"<CR>
-
-" tagbar
-"nnoremap <silent> <F4> :TagbarToggle<CR>
-
-" easygrep
-" https://github.com/vim-scripts/EasyGrep/blob/master/doc/EasyGrep.txt
-" 2 = all files, 1 = buffers
-let g:EasyGrepMode=2
+map <leader>v :sp ~/.config/nvim/init.vim<CR><C-W>_
+map <silent> <leader>V :source ~/.config/nvim/init.vim<CR>:filetype detect<CR>:exe ":echo 'init.vim reloaded'"<CR>
 
 " typing too fast; commands in CAPS work also
-command W w
+command! W w
 " faster search on finnish keyboard
 nmap <space> /
 
@@ -225,7 +189,13 @@ nmap <leader>Y "+yy
 nmap <leader>p "+p
 
 command! -nargs=0 PyTags execute 'silent !ctags -R --languages=Python,JavaScript --python-kinds=-i .'
-command! -nargs=0 HsTags execute 'silent !hasktags --ignore-close-implementation --ctags .'
+" TODO: Use :AsyncRun that does the same behind the scenes?
+if has('nvim')
+    command! -nargs=0 HsTags call jobstart('hasktags --ignore-close-implementation --ctags .')
+else
+    command! -nargs=0 HsTags execute 'silent !hasktags --ignore-close-implementation --ctags .'
+endif
+
 nmap <C-V> "+gP
 imap <C-V> <ESC><C-V>i
 vmap <C-C> "+y
@@ -238,24 +208,12 @@ if &diff
 	nmap <C-h> <C-W>h
 endif
 
-"map <leader>r <Plug>TaskList
+" find tag(s) matching word under cursor, choose first match
 nmap <leader>1 <C-]>
+" find tag(s) matching word under cursor
 nmap <leader>2 g]
 
-" rainbow parens
-let g:rainbow_active = 1 
-
-" PROBLEM: omnicomplete becomes unusably slow with these in path
-" http://vim.wikia.com/wiki/Automatically_add_Python_paths_to_Vim_path
-"python << EOF
-"import os
-"import sys
-"import vim
-"for p in sys.path:
-    "if os.path.isdir(p):
-        "vim.command(r"set path+=%s" % (p.replace(" ", r"\ ")))
-"EOF
-" set tags+=$HOME/.vim/tags/python.ctags
+let g:rainbow_active = 1 " rainbow parens
 
 function! CleanClose(tosave)
 if (a:tosave == 1)
@@ -278,7 +236,7 @@ endfunction
 " QuickFix
 let g:jah_Quickfix_Win_Height = 10
 " toggles the quickfix window.
-command -bang -nargs=? QFix call QFixToggle(<bang>0)
+command! -bang -nargs=? QFix call QFixToggle(<bang>0)
 function! QFixToggle(forced)
   if exists("g:qfix_win") && a:forced == 0
     cclose
@@ -380,7 +338,7 @@ endfunction
 "nnoremap <leader>y :call RunAllTests('')<cr>:redraw<cr>:call JumpNoNo()<cr>
 "nnoremap <leader>y :AsyncMake %:h<cr>
 
-"set makeprg=unit2\ discover
+" TODO: language specific toggling
 set makeprg=python\ -m\ unittest
 
 " settings for writing (hjkl works for navigating big block of text)
@@ -398,7 +356,6 @@ function! ToggleTee()
         let s:text_write = 1
     endif
 endfunction
-
 "map <leader>ss :call ToggleTee()<CR>
 
 command! -nargs=+ Ack call AckFunc(<q-args>)
@@ -406,11 +363,10 @@ function! AckFunc(query)
     let cmd = 'ack -H --nocolor --nogroup --column '
     let cmd .= a:query
 	let cmd .= ' | cut -c 1-100'
-    let efm = "%f:%l:%c:%m"
-    let title = "[Found: %s] Ack"
-    let env = asynchandler#quickfix(efm, title)
-    "call asynccommand#run(cmd, env)
-    call AsyncRun(cmd, env)
+    "let efm = "%f:%l:%c:%m"
+    "let title = "[Found: %s] Ack"
+    "let env = asynchandler#quickfix(efm, title)
+    call AsyncRun(cmd)
 endfunction
 
 " Load the output as an error file -- does not jump cursor to quick fix
@@ -452,8 +408,8 @@ endfunction
 let g:ignorefiles = ['.gitignore','~/.gitignore','/code/gitignore','/code/vimignore','.vimignore']
 call SetupVimIgnore()
 
-command -nargs=1 Code call GoProj(<q-args>, "~/code/")
-command -nargs=1 Proj call GoProj(<q-args>, "/code/")
+command! -nargs=1 Code call GoProj(<q-args>, "~/code/")
+command! -nargs=1 Proj call GoProj(<q-args>, "/code/")
 function! GoProj(name, cpath)
 py << EOF
 import vim

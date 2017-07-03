@@ -1,32 +1,18 @@
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
-export PYTHONPATH="/Users/jvai:$PYTHONPATH"
 
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
-export WORKON_HOME=/opt/virtualenv
-source /usr/local/bin/virtualenvwrapper.sh
+export WORKON_HOME=/srv/virtualenv
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
 
-#export LANG="en_en.UTF-8"
-#export LC_COLLATE="en_en.UTF-8"
-#export LC_CTYPE="en_en.UTF-8"
-#export LC_MESSAGES="en_en.UTF-8"
-#export LC_MONETARY="en_en.UTF-8"
-#export LC_NUMERIC="en_en.UTF-8"
-#export LC_TIME="en_en.UTF-8"
-#export LC_ALL=
-
-# android (phonegap)
-export PATH=$PATH:$HOME/Documents/mobile/adt-bundle-mac/sdk/tools:$HOME/Documents/mobile/adt-bundle-mac/sdk/platform-tools
-# appcelerator
-export PATH+=$PATH:/usr/local/share/npm/bin
-
-# git branch on bash shell
-c_cyan=`tput setaf 6`
 c_red=`tput setaf 1`
 c_green=`tput setaf 2`
 c_sgr0=`tput sgr0`
 
-parse_git_branch ()
-{
+parse_git_branch() {
 if git rev-parse --git-dir >/dev/null 2>&1
 then
     gitver=$(git branch 2>/dev/null| sed -n '/^\*/s/^\* //p')
@@ -36,8 +22,7 @@ fi
 echo -e $gitver
 }
 
-branch_color ()
-{
+branch_color() {
 if git rev-parse --git-dir >/dev/null 2>&1
 then
     color=""
@@ -53,9 +38,23 @@ fi
 echo -ne $color
 }
 
-PS1='[\[$(branch_color)\]$(parse_git_branch)\[${c_sgr0}\]] \u@\[${c_black}\]\w\[${c_sgr0}\]: '
+PS1='$(parse_git_branch) \u@\w: ' # '\h:\W \u '
 
-function title() {
-    # set terminal tab title to $1
+function title() { # set terminal tab title to $1
     export PROMPT_COMMAND="echo -ne '\033]0;$1\007'"
 }
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+# Haskell GHC
+# stack binaries install to .local/bin
+export PATH="$HOME/.local/bin:$PATH"
+
+export PYTHONSTARTUP=$HOME/dotfiles/pythonstartup.py
+
+if [ -f /Users/jvai/Dropbox/bash.init ]; then
+    source /Users/jvai/Dropbox/bash.init
+fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

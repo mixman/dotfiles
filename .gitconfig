@@ -1,18 +1,24 @@
 [user]
+    email = jussiava@gmail.com
     name = Jussi Vaihia
-	email = jussiava@gmail.com
+
 [color]
-	diff = auto
-	status = auto
-	branch = auto
+    diff = auto
+    status = auto
+    branch = auto
 [core]
     # place gitignores into project root for relative paths from gitignore to work
     excludesfile = /opt/gitignore
-	editor = nano
+    editor = vim
 [alias]
-	st = status
-	co = checkout
-	ci = commit
-	br = branch
+    st = status
+    co = checkout
+    ci = commit
+    br = branch
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s [%an] %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-
+[push]
+	default = simple
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true

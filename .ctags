@@ -1,5 +1,19 @@
+--exclude=*.min.js
+--exclude=node_modules
+--exclude=bower_components
+--exclude=static/*.js
+--exclude=jquery*.js
+--exclude=bootstrap*.js
+--exclude=select2*.js
+--exclude=underscore*.js
+--exclude=wysihtml*.js
+--exclude=codemirror*.js
+--exclude=markdown*.js
+
 --langdef=js
 --langmap=js:.js
+--langmap=js:+.jsx
+--langmap=js:+.html
 --regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/,object/
 --regex-js=/([A-Za-z0-9._$()]+)[ \t]*[:=][ \t]*function[ \t]*\(/\1/,function/
 --regex-js=/function[ \t]+([A-Za-z0-9._$]+)[ \t]*\(([^)])\)/\1/,function/
@@ -10,11 +24,18 @@
 --regex-js=/([A-Za-z0-9._$\#\(\)]+)[ \t]*[:][ \t]*([A-Za-z0-9._\-\#\'\"]+)[ \t]*/\1/p,property/
 --regex-js=/([A-Za-z0-9._$\#\(\)]+)[ \t]*[:][ \t]*([A-Za-z0-9\'\"._\-\#\(]+)[ \t]*\{/\1/p,property/
 --regex-js=/var ([A-Za-z0-9._$\#]+)[ \t]*[=][ \t]*([A-Za-z0-9._'"\$\#\[\{]+)[,|;]/\1/v,variable/
---regex-foo=/([A-Za-z0-9._$\#]+)[ \t]*[=][ \t]*([A-Za-z0-9._'"\$\#]+)extend\(/\1/c,class/
+--regex-js=/([A-Za-z0-9._$\#]+)[ \t]*[=][ \t]*([A-Za-z0-9._'"\$\#]+)extend\(/\1/c,class/
 --regex-js=/exports\.([A-Za-z0-9_$]+)[ \t]*=[ \t]*/\1/,object/
---regex-js=/var ([A-Za-z0-9._$\#]+)[ \t]*[=][ \t]*([\{])*/\1/v,class/
---langdef=coffee
---langmap=coffee:.coffee
---regex-coffee=/^[ \t]*([A-Za-z.]+)[ \t]+=.*->.*$/\1/f,function/
---regex-coffee=/^[ \t]*([A-Za-z.]+)[ \t]+=[^->\n]*$/\1/v,variable/
---regex-coffee=/^[ \t]*((class ){1}[A-Za-z.]+)[ \t]+=[^->\n]*$/\1/v,object/
+--regex-js=/var ([A-Za-z0-9._$\#]+)[ \t]*[=][ \t]*([\{])*/\1/v,class/}]))}]"])}]))"]']']'"]])}
+
+--regex-js=/[ \t.]([A-Z][A-Z0-9._$]+)[ \t]*[=:][ \t]*([0-9"'\[\{]|null)/\1/n,constant/}]'])
+--regex-js=/\.([A-Za-z0-9._$]+)[ \t]*=[ \t]*\{/\1/o,object/
+--regex-js=/['"]*([A-Za-z0-9_$]+)['"]*[ \t]*:[ \t]*\{/\1/o,object/
+--regex-js=/([A-Za-z0-9._$]+)\[["']([A-Za-z0-9_$]+)["']\][ \t]*=[ \t]*\{/\1\.\2/o,object/}'"]'"]]}"']"']}
+--regex-js=/(function)*[ \t]*([A-Za-z$_][A-Za-z0-9_$]+)[ \t]*\([^)]*\)[ \t]*\{/\2/f,function/}
+
+--regex-js=/^[ \t]*import[ \t]+([^;]+)/\1/r,import,imports/
+--regex-js=/^[ \t]*([a-z]+[ \t]+)*function[ \t]+([A-Za-z0-9_]+[ \t]*[^{;]*)/\2/f,function,functions/
+--regex-js=/^[ \t]*([a-z]+[ \t]+)*class[ \t]+([A-Za-z0-9_]+)[ \t]*([^)])/\2/c,class,classes/
+--regex-js=/^[ \t]*([a-z]+[ \t]+)*interface[ \t]+([A-Za-z0-9_]+)[ \t]*([^)])/\2/i,interface,interfaces/
+--regex-js=/^[ \t]*([a-z]+[ \t]+)*mixin[ \t]+([A-Za-z0-9_]+)[ \t]*([^)])/\2/m,mixin,mixins/}])
