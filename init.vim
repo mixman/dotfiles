@@ -16,8 +16,11 @@ Plug 'vim-airline/vim-airline'
 Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
 Plug 'skywind3000/asyncrun.vim'
 if has('nvim')
-    " pip3 install neovim
+    " TODO: MANUAL: pip3 install neovim
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    " deoplete tab browse
+    inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+    let g:deoplete#enable_ignore_case=1
 else
     Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'}
 endif
@@ -30,6 +33,7 @@ let mapleader=","
 
 if has('nvim')
     let g:vim_conf="~/.config/nvim/vim.init"
+    call deoplete#enable()
 else
     let g:vim_conf="~/.vimrc"
 endif
@@ -150,8 +154,10 @@ nnoremap <C-space> /
 
 " search for word under cursor
 map <leader>vv :Ack! <C-R><C-W><CR>
-" search files
+" search files in working directory
 map <leader>t :FZF<CR>
+" search files in directory of current file
+map <leader>y :Files<C-R>=expand('%:p:h')<CR><CR>
 " search buffers
 map <leader>b :CtrlPBuffer<CR>
 " search files for word under cursor
@@ -183,7 +189,7 @@ nmap <space> /
 
 " Y yanks to the end of the line
 nmap Y y$
-nmap <leader>y "+y
+"nmap <leader>y "+y
 " copy the current line to the clipboard
 nmap <leader>Y "+yy
 nmap <leader>p "+p
