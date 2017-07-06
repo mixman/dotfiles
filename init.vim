@@ -26,6 +26,10 @@ else
 endif
 call plug#end() " :PlugInstall
 
+" macbook pro touch bar fatalities
+map <F1> <Nop>
+map <leader>§ :QFix<CR>
+
 filetype plugin indent on
 
 " mapleader modification required before further <leader> definitions
@@ -256,7 +260,6 @@ augroup QFixToggle
  autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
  autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
 augroup END
-map <F1> :QFix<CR>
 
 " tests
 function! RunAllTests(args)
