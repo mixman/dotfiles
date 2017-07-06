@@ -27,7 +27,9 @@ endif
 call plug#end() " :PlugInstall
 
 " macbook pro touch bar fatalities
-map <F1> <Nop>
+inoremap <F1> <Nop>
+inoremap <F2> <Nop>
+inoremap <F3> <Nop>
 map <leader>§ :QFix<CR>
 
 filetype plugin indent on
