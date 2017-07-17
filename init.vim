@@ -27,9 +27,9 @@ endif
 call plug#end() " :PlugInstall
 
 " macbook pro touch bar fatalities
-inoremap <F1> <Nop>
-inoremap <F2> <Nop>
-inoremap <F3> <Nop>
+noremap <F1> <Nop>
+noremap <F2> <Nop>
+noremap <F3> <Nop>
 map <leader>§ :QFix<CR>
 
 filetype plugin indent on
@@ -162,10 +162,10 @@ nnoremap <C-space> /
 map <leader>vv :Ack! <C-R><C-W><CR>
 " search files in working directory
 map <leader>t :FZF<CR>
-" search files in directory of current file
+" search files in directory of current file (fzf.vim)
 map <leader>y :Files<C-R>=expand('%:p:h')<CR><CR>
-" search buffers
-map <leader>b :CtrlPBuffer<CR>
+" search buffers (fzf.vim)
+map <leader>b :Buffers<CR>
 " search files for word under cursor
 map <leader>f :CtrlSF <C-R><C-W><CR>
 " search for word, populates quickfix
