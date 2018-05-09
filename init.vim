@@ -15,21 +15,32 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
 Plug 'skywind3000/asyncrun.vim'
+Plug 'rakr/vim-colors-rakr'
+Plug 'posva/vim-vue'
 if has('nvim')
     " TODO: MANUAL: pip3 install neovim
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     " deoplete tab browse
     inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
     let g:deoplete#enable_ignore_case=1
+
+    set termguicolors
+    set background=dark
 else
     Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'}
 endif
 call plug#end() " :PlugInstall
 
+" vue
+let g:vue_disable_pre_processors=1
+
 " macbook pro touch bar fatalities
-noremap <F1> <Nop>
-noremap <F2> <Nop>
-noremap <F3> <Nop>
+map <F1> <Nop>
+imap <F1> <Nop>
+map <F2> <Nop>
+imap <F2> <Nop>
+map <F3> <Nop>
+imap <F3> <Nop>
 map <leader>§ :QFix<CR>
 
 filetype plugin indent on
@@ -93,6 +104,8 @@ set completeopt=longest,menu,menuone
 " move rightwards in insert mode, eg. foo_() => foo()_
 inoremap <C-e> <C-o>a
 
+inoremap <C-c> <Esc>
+
 " by default, use tabs, display tabstabs are four spaces, and we use tabs
 set tabstop=4 " alias ts
 set shiftwidth=4 " alias sw
@@ -123,11 +136,9 @@ set noswapfile
 
 set scrolloff=999
 set cmdheight=1
-set termguicolors
-set background=dark
 let g:impact_transbg=1
 let g:solarized_termcolors=256
-colorscheme solarized
+colorscheme rakr
 
 set listchars=nbsp:¬,eol:¶,tab:>-,extends:»,precedes:«,trail:•
 

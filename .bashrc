@@ -3,11 +3,6 @@ export LANG=en_US.UTF-8
 
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
-export WORKON_HOME=/srv/virtualenv
-if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
-    source /usr/local/bin/virtualenvwrapper.sh
-fi
-
 c_red=`tput setaf 1`
 c_green=`tput setaf 2`
 c_sgr0=`tput sgr0`
@@ -57,4 +52,7 @@ if [ -f /Users/jvai/Dropbox/bash.init ]; then
     source /Users/jvai/Dropbox/bash.init
 fi
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+#[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# added by travis gem
+[ -f /Users/jvai/.travis/travis.sh ] && source /Users/jvai/.travis/travis.sh
