@@ -10,7 +10,7 @@ c_sgr0=`tput sgr0`
 parse_git_branch() {
 if git rev-parse --git-dir >/dev/null 2>&1
 then
-    gitver=$(git branch 2>/dev/null| sed -n '/^\*/s/^\* //p')
+    gitver=$(git branch 2>/dev/null|sed -n '/^\*/s/^\* //p'|tr '/' '-'|awk '{print tolower($0)}')
 else
     return 0
 fi
@@ -56,3 +56,5 @@ fi
 
 # added by travis gem
 [ -f /Users/jvai/.travis/travis.sh ] && source /Users/jvai/.travis/travis.sh
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

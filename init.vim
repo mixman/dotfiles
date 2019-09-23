@@ -17,6 +17,7 @@ Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
 Plug 'skywind3000/asyncrun.vim'
 Plug 'rakr/vim-colors-rakr'
 Plug 'posva/vim-vue'
+Plug 'ElmCast/elm-vim'
 if has('nvim')
     " TODO: MANUAL: pip3 install neovim
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -34,6 +35,11 @@ call plug#end() " :PlugInstall
 " vue
 let g:vue_disable_pre_processors=1
 
+" elm
+let g:ycm_semantic_triggers = {
+     \ 'elm' : ['.'],
+     \}
+
 " macbook pro touch bar fatalities
 map <F1> <Nop>
 imap <F1> <Nop>
@@ -41,12 +47,12 @@ map <F2> <Nop>
 imap <F2> <Nop>
 map <F3> <Nop>
 imap <F3> <Nop>
-map <leader>§ :QFix<CR>
 
 filetype plugin indent on
 
 " mapleader modification required before further <leader> definitions
 let mapleader=","
+map <leader>§ :QFix<CR>
 
 if has('nvim')
     let g:vim_conf="~/.config/nvim/vim.init"
@@ -69,6 +75,8 @@ set backspace=indent,eol,start
 syntax on
 
 " Python syntax highlighting
+let g:python_host_prog  = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
 let python_highlight_numbers = 1
 let python_highlight_builtins = 1
 let python_highlight_exceptions = 1
