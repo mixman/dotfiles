@@ -75,8 +75,13 @@ set backspace=indent,eol,start
 syntax on
 
 " Python syntax highlighting
-let g:python_host_prog  = '/usr/local/bin/python'
-let g:python3_host_prog = '/usr/local/bin/python3'
+if system("uname -p") == "i386"
+    let g:python_host_prog  = '/usr/local/bin/python'
+    let g:python3_host_prog = '/usr/local/bin/python3'
+else
+    let g:python_host_prog  = '/usr/bin/python'
+    let g:python3_host_prog = '/opt/homebrew/bin/python3'
+endif
 let python_highlight_numbers = 1
 let python_highlight_builtins = 1
 let python_highlight_exceptions = 1
