@@ -7,9 +7,10 @@ let $FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 " neovim.txt
 call plug#begin('~/.config/nvim/plugged')
 Plug 'tpope/vim-fugitive'
-Plug 'gregsexton/gitv', {'on': ['Gitv']}
+" Plug 'gregsexton/gitv', {'on': ['Gitv']}
+Plug 'rbong/vim-flog'
 Plug 'dyng/ctrlsf.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
@@ -18,12 +19,16 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'rakr/vim-colors-rakr'
 Plug 'posva/vim-vue'
 Plug 'ElmCast/elm-vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build' }
+Plug 'preservim/nerdtree'
 if has('nvim')
     " TODO: MANUAL: pip3 install neovim
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    " NOTE: deoplete incompatible with CoC
+    "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     " deoplete tab browse
-    inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-    let g:deoplete#enable_ignore_case=1
+    "inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+    "let g:deoplete#enable_ignore_case=1
 
     set termguicolors
     set background=dark
@@ -56,7 +61,7 @@ map <leader>§ :QFix<CR>
 
 if has('nvim')
     let g:vim_conf="~/.config/nvim/vim.init"
-    call deoplete#enable()
+    "call deoplete#enable()
 else
     let g:vim_conf="~/.vimrc"
 endif
@@ -76,10 +81,8 @@ syntax on
 
 " Python syntax highlighting
 if system("uname -p") == "i386"
-    let g:python_host_prog  = '/usr/local/bin/python'
     let g:python3_host_prog = '/usr/local/bin/python3'
-else
-    let g:python_host_prog  = '/usr/bin/python'
+else " arm
     let g:python3_host_prog = '/opt/homebrew/bin/python3'
 endif
 let python_highlight_numbers = 1
@@ -144,14 +147,74 @@ au BufRead,BufNewFile *.js,*yml,*.html setlocal sw=2 sts=2 ts=2
 set backupdir=/tmp//
 set directory=/tmp//
 set nobackup
+set nowritebackup
 set nowb
 set noswapfile
 
 set scrolloff=999
-set cmdheight=1
+set cmdheight=2
 let g:impact_transbg=1
 let g:solarized_termcolors=256
 colorscheme rakr
+
+" TODO: source coc-init.vim to keep things clean?
+" START coc.nvim
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+" faster updates
+set updatetime=300
+" signcolumn is left gutter for linting notices
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+" END coc.nvim
 
 set listchars=nbsp:¬,eol:¶,tab:>-,extends:»,precedes:«,trail:•
 
@@ -171,7 +234,13 @@ inoremap <C-j> <esc>
 
 " nice-to-haves that slow redraw
 set nocursorline
-set norelativenumber
+"set relativenumber
+set number relativenumber
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 " /nice-to-haves
 set hidden "not forced to save before switching buffers
 map <leader>q <esc>:call CleanClose(0)<CR>
@@ -194,6 +263,11 @@ map <leader>b :Buffers<CR>
 map <leader>f :CtrlSF <C-R><C-W><CR>
 " search for word, populates quickfix
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+" search files for file name under cursor; gf with path+=**
+set path +=**
+" search #tag TODO: how to regex instead of hardcoding #?
+map <leader>d :CtrlSF #<C-R><C-W><CR>
+
 
 " fugitive
 " remove old fugitive buffers
@@ -224,7 +298,7 @@ nmap Y y$
 nmap <leader>Y "+yy
 nmap <leader>p "+p
 
-command! -nargs=0 PyTags execute 'silent !ctags -R --languages=Python,JavaScript --python-kinds=-i .'
+command! -nargs=0 PyTags execute 'silent !ctags -R --languages=Python,JavaScript,sh --python-kinds=-i .'
 " TODO: Use :AsyncRun that does the same behind the scenes?
 if has('nvim')
     command! -nargs=0 HsTags call jobstart('hasktags --ignore-close-implementation --ctags .')
