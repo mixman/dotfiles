@@ -37,6 +37,10 @@ else
 endif
 call plug#end() " :PlugInstall
 
+if !has_key(plugs, "coc.nvim")
+    finish
+endif
+
 " vue
 let g:vue_disable_pre_processors=1
 
