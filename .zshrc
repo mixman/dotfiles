@@ -15,7 +15,7 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-[ -f "/Users/jvai/.ghcup/env" ] && source "/Users/jvai/.ghcup/env" # ghcup-env
+[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
 
 export GOPATH=$HOME/go
 
@@ -58,7 +58,6 @@ echo -e " {$AWS_PROFILE}"
 }
 
 setopt PROMPT_SUBST
-#PROMPT='%9c%{%F{green}%}$(parse_git_branch)%{%F{none}%} $ '
 PROMPT='$(parse_git_branch)$(aws_profile) %n@%~ %# '
 
 # starship.rs
