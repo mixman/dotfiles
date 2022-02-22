@@ -17,6 +17,7 @@ hs.hotkey.bind({"command"}, "2", open("iTerm"))
 hs.hotkey.bind({"command"}, "3", open("Terminal"))
 hs.hotkey.bind({"command"}, "4", open("iTermVim"))
 hs.hotkey.bind({"command"}, "5", open("iTermNotes"))
+hs.hotkey.bind({"command"}, "9", open("1Password 7"))
 
 -- Window management
 -- Resize current window

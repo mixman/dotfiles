@@ -7,11 +7,14 @@ if [ "$(uname -p)" = "arm" ]; then
 [ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
 [ -f "/opt/homebrew/bin/brew" ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+#export PATH="$HOME/.ghcup/bin:$PATH"
 #export LDFLAGS="-L/opt/homebrew/opt/llvm/lib -Wl,-rpath,/opt/homebrew/opt/llvm/lib"
 else # rosetta
+export GHCUP_INSTALL_BASE_PREFIX=/opt
 [ -f "/opt/.ghcup/env" ] && source "/opt/.ghcup/env" # ghcup-env
 [ -f "/usr/local/Homebrew/bin/brew" ] && eval "$(/usr/local/Homebrew/bin/brew shellenv)"
 export PATH="/usr/local/Homebrew/opt/llvm/bin:$PATH"
+#export PATH="/opt/.ghcup/bin:$PATH"
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
