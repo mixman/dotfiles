@@ -51,4 +51,8 @@ fi
 echo -e $gitver
 }
 
+eval "$(direnv hook zsh)"
 
+
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-17.jdk/Contents/Home
+export GPG_TTY=$(tty)

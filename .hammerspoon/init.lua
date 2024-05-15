@@ -43,7 +43,7 @@ end
 
 hs.hotkey.bind({"alt", "command"}, "1", maximize)
 
-hs.hotkey.bind({"cmd", "alt", "ctrl"}, "Left", function()
+hs.hotkey.bind({"ctrl", "command"}, "Left", function()
   local win = hs.window.focusedWindow()
   local f = win:frame()
   local max = win:screen():frame()
@@ -55,3 +55,14 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "Left", function()
   win:setFrame(f, 0)
 end)
 
+hs.hotkey.bind({"ctrl", "command"}, "Right", function()
+  local win = hs.window.focusedWindow()
+  local f = win:frame()
+  local max = win:screen():frame()
+
+  f.x = max.x / 4
+  f.y = max.y
+  f.w = max.w / 2
+  f.h = max.h
+  win:setFrame(f, 0)
+end)

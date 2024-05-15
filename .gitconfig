@@ -2,13 +2,14 @@
     email = jussiava@gmail.com
     name = Jussi Vaihia
 
+[includeIf "gitdir:/Users/jvai/dias/**"]
+  path = /Users/jvai/dotfiles/.gitconfig_dias
+
 [color]
     diff = auto
     status = auto
     branch = auto
 [core]
-    # place gitignores into project root for relative paths from gitignore to work
-    excludesfile = /opt/gitignore
     editor = vim
 [alias]
     st = status
